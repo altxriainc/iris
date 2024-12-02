@@ -27,7 +27,7 @@
 Install Iris via pip:
 
 ```bash
-pip install iris-template
+pip install iris-templates
 ```
 
 ### Step 2: Render Your First Template

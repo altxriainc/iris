@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="iris",
+    name="iris-templates",
     version="0.1.0",
     description="A powerful template rendering engine with support for directives, includes, and dynamic context evaluation.",
     long_description=open("README.md", encoding="utf-8").read(),
