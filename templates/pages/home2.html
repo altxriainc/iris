@@ -1,0 +1,44 @@
+@extends('layouts/base.html')
+
+@section('title', 'Home Page')
+
+@section('content')
+{{-- This is a comment and should not appear in the output --}}
+
+@isset('user')
+    <p>User is set: {{ user['name'] }}</p>
+@endisset
+
+@empty('orders')
+    <p>No orders found.</p>
+@endempty
+
+@for
+i in range(3)
+    <p>For Loop Iteration: {{ i }}</p>
+    @if(i == 1)
+        @continue
+    @endif
+    <p>After possible continue</p>
+@endfor
+
+@foreach
+ item in items
+    <p>Item: {{ item }}</p>
+    @if(item == 'Skip')
+        @continue
+    @endif
+    <p>Processed Item: {{ item }}</p>
+@endforeach
+
+@switch(status)
+    @case('success')
+        <p>Operation was successful.</p>
+    @break
+    @case('error')
+        <p>There was an error.</p>
+    @break
+    @default
+        <p>Status unknown.</p>
+@endswitch
+@endsection

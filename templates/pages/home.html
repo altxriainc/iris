@@ -1,0 +1,17 @@
+@extends('layouts/base.html')
+
+@section('title', 'Home Page')
+
+@section('content')
+    <h1>Welcome, {{ user['name'] }}</h1>
+    @if(user['is_admin'])
+        <p>Welcome Admin!</p>
+    @else
+        <p>Welcome User!</p>
+    @endif
+
+    @python
+result = sum([1, 2, 3])
+@endpython
+    <p>The result of the sum is {!! result !!}</p>
+@endsection
