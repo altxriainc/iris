@@ -463,28 +463,36 @@ class ControlStructureHandler(DirectiveHandlerBase):
         return re.sub(pattern, for_replacer, template, flags=re.DOTALL)
 
     def process_if_statements(self, template, context):
-        pattern = r'@if\((.*?)\)(.*?)((?:@elseif\(.*?\).*?)*)(@else(.*?))?@endif'
+        pattern = r'@if\(([^)]+)\)(.*?)@endif'
 
         def if_replacer(match):
-            condition = match.group(1)
-            true_block = match.group(2)
-            elseif_blocks = match.group(3) or ''
-            else_block = match.group(5) or ''
+            condition = match.group(1).strip()
+            inner_block = match.group(2).strip()
 
-            # Evaluate the condition safely
+            # Split inner block into true block, elseif blocks, and else block
+            blocks = re.split(r'(@elseif\([^)]+\)|@else)', inner_block)
+
+            true_block = blocks[0].strip() if blocks else ''
+            elseif_blocks = blocks[1:-1] if len(blocks) > 1 else []
+            else_block = blocks[-1].strip() if blocks and blocks[-1].startswith('@else') else ''
+
+            # Evaluate the @if condition
             if self._safe_eval(condition, context):
                 return self.process_control_structures(true_block, context)
-            else:
-                if elseif_blocks:
-                    elif_pattern = r'@elseif\((.*?)\)(.*?)(?=@elseif|@else|$)'
-                    elif_matches = re.findall(elif_pattern, elseif_blocks, flags=re.DOTALL)
-                    for elif_cond, elif_block in elif_matches:
-                        if self._safe_eval(elif_cond, context):
-                            return self.process_control_structures(elif_block, context)
-                if else_block:
-                    return self.process_control_structures(else_block, context)
-                else:
-                    return ''
+
+            # Process @elseif blocks
+            for elseif_block in elseif_blocks:
+                if elseif_block.startswith('@elseif'):
+                    elseif_condition = re.match(r'@elseif\(([^)]+)\)', elseif_block).group(1).strip()
+                    elseif_content = inner_block.split(elseif_block, 1)[-1].strip()
+                    if self._safe_eval(elseif_condition, context):
+                        return self.process_control_structures(elseif_content, context)
+
+            # Process @else block
+            if else_block:
+                return self.process_control_structures(else_block.replace('@else', '').strip(), context)
+
+            return ''
 
         return re.sub(pattern, if_replacer, template, flags=re.DOTALL)
 
