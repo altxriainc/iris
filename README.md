@@ -47,7 +47,7 @@ Create a template file, e.g., `template.html`:
 Create a Python script to render the template:
 
 ```python
-from iris import TemplateEngine
+from altxria.iris.engine import TemplateEngine
 
 engine = TemplateEngine(template_dir="./templates")
 output = engine.render("template.html", {"user": "Alice"})
