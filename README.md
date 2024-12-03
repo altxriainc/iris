@@ -7,6 +7,8 @@
 
 **Iris** is a modern, lightweight Python template engine designed for simplicity, flexibility, and performance. With advanced directive processing, includes, and dynamic context evaluation, Iris provides developers with a seamless way to render dynamic templates efficiently.
 
+[Click here for the documentation](https://iris.altxria.com/)
+
 ---
 
 ## 🚀 Key Features

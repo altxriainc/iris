@@ -5,6 +5,10 @@
 @section('content')
 {{-- This is a comment and should not appear in the output --}}
 
+@python i = 0 @endpython
+
+<p>{{ i }}</p>
+
 @isset('user')
     <p>User is set: {{ user['name'] }}</p>
 @endisset
