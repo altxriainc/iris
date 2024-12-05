@@ -3,7 +3,7 @@
 ![Latest Version](https://img.shields.io/pypi/v/iris-templates)
 ![Downloads](https://img.shields.io/pypi/dm/iris-templates)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
-![License: CC BY-ND 4.0](https://img.shields.io/badge/License-CC%20BY--ND%204.0-lightgrey.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)
 
 **Iris** is a modern, lightweight Python template engine designed for simplicity, flexibility, and performance. With advanced directive processing, includes, and dynamic context evaluation, Iris provides developers with a seamless way to render dynamic templates efficiently.
 
